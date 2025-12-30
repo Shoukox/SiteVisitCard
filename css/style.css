@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(90deg, #c65cf1, #d63384, #3e030c);
+    background: linear-gradient(0deg, #3e030c -10%, #e83e93 50%, #3e030c 110%);
     background-attachment: fixed;
     color: #fff;
     font-family: 'Roboto', sans-serif;
