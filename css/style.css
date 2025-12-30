@@ -1,0 +1,127 @@
+/* --- Base Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(90deg, #c65cf1, #d63384, #3e030c);
+    background-attachment: fixed;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* --- Header & Nav --- */
+.header_container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Stacks on mobile */
+    align-items: center;
+    gap: 15px;
+}
+
+.header_title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap; /* Allows wrap on tiny screens */
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+}
+
+.nav-links li {
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 35px;
+}
+
+/* --- Main Content --- */
+.mainpart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; 
+    text-align: center;
+    padding: 20px;
+}
+
+.mainpart_title {
+    font-size: clamp(3rem, 10vw, 5.25rem); /* Responsive font size */
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.mainpart_info {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    letter-spacing: 4px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+/* --- Social Links --- */
+.social_links ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem 0;
+    gap: 30px;
+}
+
+.social_links a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    opacity: 0.8;
+    transition: 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.social_links a:hover {
+    opacity: 1;
+    border-bottom: 2px solid #ffccff;
+}
+
+/* --- Animations & Badges --- */
+.todo-badge {
+    font-size: 9px;
+    color: #ffccff;
+    animation: slideDown 0.3s ease-out;
+}
+
+footer {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Desktop Adjustments --- */
+@media (min-width: 768px) {
+    .header_container {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 30px 70px;
+    }
+    
+    .mainpart {
+        min-height: 85vh;
+    }
+}
