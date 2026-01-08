@@ -9,5 +9,9 @@ document.querySelectorAll('.nav-links li').forEach(item => {
     });
 });
 
+document.querySelector('.header_title').addEventListener('click', function(){
+    location.reload();
+});
+
 const currentYear = new Date().getFullYear();
 document.getElementsByTagName('footer')[0].appendChild(document.createTextNode(currentYear + " © shoukko.de"));

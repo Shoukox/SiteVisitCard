@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(0deg, #3e030c -10%, #e83e93 50%, #3e030c 110%);
+    background: linear-gradient(0deg, #000000 -10%, #160028 50%, #000000 110%);
     background-attachment: fixed;
     color: #fff;
     font-family: 'Roboto', sans-serif;
@@ -26,6 +26,7 @@ body {
 .header_title {
     font-size: 24px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .nav-links ul {
