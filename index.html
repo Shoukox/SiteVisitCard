@@ -3,42 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shoukko | Portfolio</title>
+    <title>Shoukko | CV</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header_container">
-            <div class="header_title">Shoukko</div>
-            <nav class="nav-links">
-                <ul>
-                    <li>Home</li>
-                    <li>Projects</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                </ul>
-            </nav>
+  <canvas id="bg"></canvas>
+
+  <div class="stage">
+    <section class="card" id="card" aria-label="Developer info">
+      <div class="inner">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h1>Shahzod</h1>
+          <div class="subtitle">
+            .NET C# software developer with extensive knowledge of software and web development as well as test automation. 
+          </div>
+
+          <div class="badges">
+            <span class="badge">C# / .NET</span>
+            <span class="badge">SWE</span>
+            <span class="badge">Web</span>
+            <span class="badge">QA</span>
+            <span class="badge">UI/UX</span>
+          </div>
         </div>
-    </header>
+      </div>
 
-    <main class="mainpart">
-        <div class="mainpart_container">
-            <h1 class="mainpart_title">Shoukko</h1>
-            <p class="mainpart_info">Software & Web Developer</p>
-            <div class="social_links">
-                <ul>
-                    <li><a href="https://steamcommunity.com/id/shoukoX/">Steam</a></li>
-                    <li><a href="https://www.linkedin.com/in/shahzod-akhrarkhodjaev-8b9841251/">LinkedIn</a></li>
-                    <li><a href="https://github.com/Shoukox">Github</a></li>
-                    <li><a href="https://codeforces.com/profile/Shoukko">Codeforces</a></li>
-                </ul>
-            </div>
+      <div class="grid">
+        <div class="box">
+          <div class="k">Focus</div>
+          <div class="v">SWE/Web, distributed systems, test automation</div>
         </div>
-    </main>
+        <div class="box">
+          <div class="k">Currently</div>
+          <div class="v">Studying, working on my own projects, shipping features, squashing flaky tests</div>
+        </div>
+        <div class="box">
+          <div class="k">Stack</div>
+          <div class="v">.NET (C#), ASP.NET Core, EF, Selenium, Avalonia, Docker, Docker Compose, Azure DevOps, Redis, Kafka, RabbitMQ, SQLite, PostgreSQL</div>
+        </div>
+        <div class="box">
+          <div class="k">Location</div>
+          <div class="v">Darmstadt, Hesse, Germany <br>(remote-friendly; globally connected).</div>
+        </div>
+      </div>
 
-    <footer>
-    </footer>
+      <div class="links">
+        <a class="btn" href="https://github.com/Shoukox" target="_blank">
+          <span class="dot"></span> GitHub
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/shoukox/" target="_blank">
+          <span class="dot"></span> LinkedIn
+        </a>
+        <a class="btn" href="mailto:shachzod2004@gmail.com" target="_blank">
+          <span class="dot"></span> Email
+        </a>
+      </div>
+    </section>
+  </div>
 
-    <script src="js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
