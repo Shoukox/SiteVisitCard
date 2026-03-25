@@ -1,5 +1,4 @@
 (() => {
-    // Canvas setup (reuse #fx if present; otherwise create)
     let canvas = document.getElementById("fx");
     if (!canvas) {
         canvas = document.createElement("canvas");
@@ -9,7 +8,6 @@
 
     const ctx = canvas.getContext("2d", { alpha: true });
 
-    // Ensure canvas covers screen and sits behind content
     Object.assign(canvas.style, {
         position: "fixed",
         inset: "0",
@@ -34,15 +32,12 @@
     resize();
 
     // Bloomy "breathing" background (GTA5-ish)
-    // We paint multiple soft moving blobs into an offscreen buffer,
-    // blur-ish by drawing scaled + additive, then overlay a subtle vignette.
     const bg = document.createElement("canvas");
     const bctx = bg.getContext("2d", { alpha: true });
     let bW = 0,
         bH = 0;
 
     function resizeBg() {
-        // offscreen lower-res buffer for cheaper faux-blur
         bW = Math.max(320, Math.floor(W * 0.55));
         bH = Math.max(240, Math.floor(H * 0.55));
         bg.width = bW;
@@ -51,7 +46,6 @@
     resizeBg();
     window.addEventListener("resize", resizeBg);
 
-    // Color palette (neon-pastel)
     const BLOBS = [
         { c: [165, 110, 255], a: 0.55, r: 0.55, sp: 0.22 },
         { c: [255, 105, 185], a: 0.40, r: 0.50, sp: 0.18 },
@@ -76,10 +70,9 @@
     }
 
     function paintBloomBackground(t) {
-        // t in seconds
+        // in seconds
         const time = t * 0.001;
 
-        // base dark gradient
         const g = bctx.createLinearGradient(0, 0, bW, bH);
         g.addColorStop(0, "rgba(7,8,18,1)");
         g.addColorStop(1, "rgba(14,8,32,1)");
@@ -87,15 +80,12 @@
         bctx.fillStyle = g;
         bctx.fillRect(0, 0, bW, bH);
 
-        // "breathing" factor (slow pulse)
         const breathe = 0.5 + 0.5 * Math.sin(time * 0.65);
         const breathe2 = 0.5 + 0.5 * Math.sin(time * 0.42 + 1.4);
 
-        // blob layer (normal)
         bctx.globalCompositeOperation = "lighter";
 
         for (const b of BLOBS) {
-            // center drift in Lissajous-ish curves
             const driftX =
                 0.5 +
                 0.28 * Math.sin(time * (0.30 + b.sp) + b.p) +
@@ -108,7 +98,6 @@
             const cx = driftX * bW;
             const cy = driftY * bH;
 
-            // radius breathes + slight independent wobble
             const r =
                 (Math.min(bW, bH) * b.r) *
                 (0.72 + 0.28 * (breathe * 0.7 + breathe2 * 0.3)) *
@@ -130,8 +119,6 @@
             bctx.fill();
         }
 
-        // faux blur / bloom: draw the buffer onto itself scaled down/up with additive blending
-        // (cheap "bloom" trick)
         bctx.globalCompositeOperation = "lighter";
         bctx.globalAlpha = 0.55;
         bctx.drawImage(bg, -bW * 0.03, -bH * 0.03, bW * 1.06, bH * 1.06);
@@ -139,7 +126,6 @@
         bctx.drawImage(bg, -bW * 0.06, -bH * 0.06, bW * 1.12, bH * 1.12);
         bctx.globalAlpha = 1;
 
-        // subtle vignette (multiply)
         bctx.globalCompositeOperation = "multiply";
         const vg = bctx.createRadialGradient(
             bW * 0.5,
@@ -242,9 +228,7 @@
     }
     window.addEventListener("pointermove", onMove, { passive: true });
 
-        // -----------------------------
     // Glass card tilts toward cursor
-    // -----------------------------
     const card = document.getElementById("card");
     let targetRX = 0, targetRY = 0;
     let curRX = 0, curRY = 0;
@@ -257,44 +241,36 @@
       const dx = (e.clientX - cx) / (rect.width / 2);
       const dy = (e.clientY - cy) / (rect.height / 2);
 
-      // clamp to avoid wild rotations
       const x = clamp(dx, -1, 1);
       const y = clamp(dy, -1, 1);
 
-      // rotateX is opposite of y movement
-      targetRX = (-y) * 3;   // degrees
-      targetRY = (x) * 3;    // degrees
+      targetRX = (-y) * 3;
+      targetRY = (x) * 3;
     }
     window.addEventListener("pointermove", cardAim, { passive:true });
 
     function smoothCard(){
-      // critically damped-ish smoothing
       curRX += (targetRX - curRX) * 0.10;
       curRY += (targetRY - curRY) * 0.10;
 
-      // small z translation for depth
       card.style.transform = `rotateX(${curRX.toFixed(3)}deg) rotateY(${curRY.toFixed(3)}deg) translateZ(0px)`;
       requestAnimationFrame(smoothCard);
     }
     requestAnimationFrame(smoothCard);
 
-    // -----------------------------
     // Main animation loop
-    // -----------------------------
     let lastT = performance.now();
 
     function tick(t) {
         const dt = Math.min(32, t - lastT);
         lastT = t;
 
-        // 1) Paint bloom background into offscreen, then draw to main canvas
         paintBloomBackground(t);
 
         ctx.clearRect(0, 0, W, H);
         ctx.globalCompositeOperation = "source-over";
         ctx.drawImage(bg, 0, 0, bW, bH, 0, 0, W, H);
 
-        // 2) Draw triangles on top (additive)
         ctx.globalCompositeOperation = "lighter";
 
         for (let i = tris.length - 1; i >= 0; i--) {
@@ -331,7 +307,6 @@
                 fill
             );
 
-            // subtle outline
             ctx.save();
             ctx.translate(px, py);
             ctx.rotate(p.rot);
